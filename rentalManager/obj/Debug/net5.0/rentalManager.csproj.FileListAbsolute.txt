@@ -1,0 +1,16 @@
+C:\Users\saifj\Desktop\4471\code\rentalManager\bin\Debug\net5.0\rentalManager.exe
+C:\Users\saifj\Desktop\4471\code\rentalManager\bin\Debug\net5.0\rentalManager.deps.json
+C:\Users\saifj\Desktop\4471\code\rentalManager\bin\Debug\net5.0\rentalManager.runtimeconfig.json
+C:\Users\saifj\Desktop\4471\code\rentalManager\bin\Debug\net5.0\rentalManager.runtimeconfig.dev.json
+C:\Users\saifj\Desktop\4471\code\rentalManager\bin\Debug\net5.0\rentalManager.dll
+C:\Users\saifj\Desktop\4471\code\rentalManager\bin\Debug\net5.0\ref\rentalManager.dll
+C:\Users\saifj\Desktop\4471\code\rentalManager\bin\Debug\net5.0\rentalManager.pdb
+C:\Users\saifj\Desktop\4471\code\rentalManager\obj\Debug\net5.0\rentalManager.csproj.AssemblyReference.cache
+C:\Users\saifj\Desktop\4471\code\rentalManager\obj\Debug\net5.0\rentalManager.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\saifj\Desktop\4471\code\rentalManager\obj\Debug\net5.0\rentalManager.AssemblyInfoInputs.cache
+C:\Users\saifj\Desktop\4471\code\rentalManager\obj\Debug\net5.0\rentalManager.AssemblyInfo.cs
+C:\Users\saifj\Desktop\4471\code\rentalManager\obj\Debug\net5.0\rentalManager.csproj.CoreCompileInputs.cache
+C:\Users\saifj\Desktop\4471\code\rentalManager\obj\Debug\net5.0\rentalManager.dll
+C:\Users\saifj\Desktop\4471\code\rentalManager\obj\Debug\net5.0\ref\rentalManager.dll
+C:\Users\saifj\Desktop\4471\code\rentalManager\obj\Debug\net5.0\rentalManager.pdb
+C:\Users\saifj\Desktop\4471\code\rentalManager\obj\Debug\net5.0\rentalManager.genruntimeconfig.cache
