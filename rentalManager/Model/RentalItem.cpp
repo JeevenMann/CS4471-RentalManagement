@@ -65,3 +65,18 @@ Renting Rules?
 Left in stock (number not rented)
 List of Customers who are renting that item
 */
+
+/*
+Rent Creater Function - Navjeeven
+Choose customer, then choose item to rent
+rentedItem data type created and added to customer’s list of rented items
+Rentalitem datatype updated
+Customer added to list
+Number in stock is updated
+*/
+
+ void RentalItem::createRentalAgreement(Customer withCustomer, RentalItem rentalItem) {
+    withCustomer.addRentalItem(rentalItem);
+    rentalItem.addCustomer(withCustomer);
+    rentalItem.itemRented();
+}
