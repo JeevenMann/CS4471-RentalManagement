@@ -11,7 +11,7 @@ namespace rentalManager
         //Item List writer
         private static void writeItemList()
         {
-            Console.WriteLine("1. Dumbell\n2. Car\n3. Guitar\n");
+            Console.WriteLine("1. Lawnmower\n2. Drill\n3. Generator\n4. Chainsaw");
         }
 
         //Item Menu
@@ -59,7 +59,7 @@ namespace rentalManager
         //Prints the Customer List//
         private static void writeCustomerList()
         {
-            Console.WriteLine("1. James\n2. Dan\n3. Mike\n");
+            Console.WriteLine("1. James\n2. Dan\n3. Mike\n4. Saif");
         }
 
         //This is the customer menu, allows you to add and delete customers
@@ -107,7 +107,7 @@ namespace rentalManager
         {
             Console.WriteLine("\n||| RENTAL MENU |||\n"+
             "1. Rent Item\n"+
-            "2. Remove Item Being Rented\n"+
+            "2. Return Item\n"+
             "3. Back");
 
             switch(Console.ReadLine())
@@ -128,9 +128,10 @@ namespace rentalManager
                     Console.ReadLine();
                     Console.WriteLine("Choose Item To Remove:");
                     //LIST OF CUSTOMER"S ITEMS
+                    Console.WriteLine("1. Drill\n2. Chainsaw");
                     Console.ReadLine();
                     //ADD item to customer's item list
-                    Console.WriteLine("Item Added to Customer's Item List");
+                    Console.WriteLine("Item Removed to Customer's Item List");
                     return true;
                 case "3":
                     return false;
@@ -156,6 +157,7 @@ namespace rentalManager
                     Console.WriteLine("Choose Customer:");
                     writeCustomerList();
                     Console.ReadLine();
+                    Console.WriteLine("Amount Owed: $532.31\n1. Drill\n2. Chainsaw");
                     //Print Customer's List with Amount Owing
                     return true;
                 case "2":
@@ -164,6 +166,7 @@ namespace rentalManager
                     Console.ReadLine();
                     Console.WriteLine("Enter Amount Paid:");
                     Console.ReadLine();
+                    Console.WriteLine("Amount Deducted from Amount Owed");
                     //Payment Function
                     return true;
                 case "3":
