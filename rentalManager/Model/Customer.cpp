@@ -4,8 +4,8 @@
 Customer::Customer(string customerID) {
    customerID = customerID;
 }
-void Customer::addRentalItem(RentalItem rentedItem) {
-    rentedItems.push_back(rentedItem);
+void Customer::addRentalItem(string todayDate,RentalItem rentedItem) {
+     rentedItems.insert(pair<string, RentalItem>(todayDate, rentedItem));
 }
 
 void Customer::removeRentalItem(RentalItem toRemove) {
@@ -13,7 +13,7 @@ void Customer::removeRentalItem(RentalItem toRemove) {
     if(it != rentedItems.end())
         rentedItems.erase(it, rentedItems.end());}
 
-vector<RentalItem> Customer::getRentalItems() {
+map<string, RentalItem> Customer::getRentalItems() {
     return rentedItems;
 }
 

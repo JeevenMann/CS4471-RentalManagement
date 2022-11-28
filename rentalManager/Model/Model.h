@@ -1,6 +1,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <map>
+
 using namespace std;
 
 
@@ -31,12 +33,13 @@ class RentalItem {
 class Customer {
     private:
         string customerID;
-        vector<RentalItem> rentedItems;  
+        map<string,RentalItem> rentedItems;  
+        double balance;
     public:
         Customer(string customerID);
         void removeRentalItem(RentalItem toRemove);
-        void addRentalItem(RentalItem rentedItem);
-        vector<RentalItem> getRentalItems();
+        void addRentalItem(string todayDate, RentalItem rentedItem);
+        map<string, RentalItem> getRentalItems();
 };
 
 #endif Model_H
