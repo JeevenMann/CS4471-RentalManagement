@@ -13,20 +13,22 @@ class Functions {
     // ------------ Attributes ------------ 
 
     int copyCustomerMoney;
+    List<RentalItem> itemList;
+    List<Customer> customerList;
 
     // ------------ Item Functions ------------ 
 
     // Return a list of the Item List
-    List<string> returnItemList() { // Change string to RentalItem.cs??
-
-        // Placeholder
-        return null;
+    List<RentalItem> returnItemList() { // Change string to RentalItem.cs??
+        return itemList;
     }
 
     // Add Item to the database and return true if successful
     Boolean addItem(string name, double cost, int stock) {
         
         RentalItem newItem = new RentalItem(name, cost, stock);
+        // Add to local DB
+        itemList.Add(newItem);
 
         // Code to add to database
 
@@ -36,6 +38,8 @@ class Functions {
 
     // Delete Item from database and return true if successful
     Boolean deleteItem(int itemArrayPosition) {
+        // Remove from localDB
+        itemList.RemoveAt(itemArrayPosition);
 
         // Code to delete item from database
 
@@ -48,10 +52,8 @@ class Functions {
     // ------------ Customer Functions ------------ 
 
     // Return a list of the Customer List
-    List<string> returnCustomerList() { // Change string to Customer.cs?
-
-        // Placeholder
-        return null;
+    List<Customer> returnCustomerList() { // Change string to Customer.cs?
+        return customerList;
     }
 
     // Add Customer to the database and return true if successful
@@ -59,6 +61,7 @@ class Functions {
         
         // Customer needs a constructor I think
         // Customer newCust = new Customer();
+        //customerList.Add(newCust);
 
         // Placeholder
         return false;
@@ -66,6 +69,9 @@ class Functions {
 
     // Delete Customer from database and return true if successful
     Boolean deleteCustomer(int customerArrayPosition) {
+
+        // Remove from localDB
+        customerList.RemoveAt(customerArrayPosition);
 
         // Code to delete Customer from database
 
@@ -94,13 +100,20 @@ class Functions {
     // Removes item from the customer's list
 
     // Change param to RentedItem?
-    Boolean returnItem(Customer cust, RentalItem item) {
+    Boolean returnItem(Customer cust, RentedItem item) {
     // Boolean returnItem(Customer cust, RentedItem item) {
 
-        // cust.removeRentalItem(item);
+        cust.removeRentalItem(item);
 
         // Increase stock
-        item.itemReturned();
+        
+        foreach (var i in itemList) {
+            if (i.getItemName() == item.getItemRented()) {
+                i.itemReturned();
+                return true
+            }
+        }
+   
 
         // Placeholder
         return false;
@@ -117,8 +130,6 @@ class Functions {
 
     // Deducts a payment of money from the amount they owe
     Boolean customerPay(Customer cust, float pay) {
-
-        // need some deduct balance attribute in Customer probably
 
         // Placeholder
         return false;
