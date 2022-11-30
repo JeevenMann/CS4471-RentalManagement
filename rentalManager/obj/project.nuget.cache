@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "9miAiAc3hldYgltjQLWy9mbSv1BmeqiX1TcyYhULR7EtSYtT3OstnUy0pi/lY0ZugRqGDtt0z8+ji/kAivmHGA==",
+  "dgSpecHash": "fLt21kg0hMWFQtOdim0gmwO1pfWf7HqisY2cCVzBa4Su8tXn5oXq905kkGNQiDjMrPm02HDgS8QiHagKBhaSYA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\saifj\\Desktop\\4471\\code\\rentalManager\\rentalManager.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/Users/navjeevenmann/Documents/GitHub/CS4471-RentalManagement/rentalManager/rentalManager.csproj",
+  "expectedPackageFiles": [
+    "/Users/navjeevenmann/.nuget/packages/microsoft.netcore.app.ref/5.0.0/microsoft.netcore.app.ref.5.0.0.nupkg.sha512",
+    "/Users/navjeevenmann/.nuget/packages/microsoft.aspnetcore.app.ref/5.0.0/microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512",
+    "/Users/navjeevenmann/.nuget/packages/microsoft.netcore.app.host.osx-x64/5.0.17/microsoft.netcore.app.host.osx-x64.5.0.17.nupkg.sha512"
+  ],
   "logs": []
 }
