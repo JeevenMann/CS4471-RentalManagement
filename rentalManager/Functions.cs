@@ -109,14 +109,16 @@ class Functions {
     // ------------ Customer Payment Functions ------------ 
 
     // Return total amount a customer owes
-    float customerOwe(Customer cust) {
+    double customerOwe(Customer cust) {
 
         // Placeholder
-        return 0.0f;
+        return cust.getBalance();
     }
 
     // Deducts a payment of money from the amount they owe
     Boolean customerPay(Customer cust, float pay) {
+
+        // need some deduct balance attribute in Customer probably
 
         // Placeholder
         return false;
