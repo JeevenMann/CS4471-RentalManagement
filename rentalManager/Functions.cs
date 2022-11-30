@@ -63,7 +63,7 @@ class Functions {
         
 
         // Add customer to localDB
-        Customer newCust = new Customer(customerUUID.ToString(),name);
+        Customer newCust = new Customer(name, customerUUID.ToString());
         customerList.Add(newCust);
 
         // Code to add customer to Database
