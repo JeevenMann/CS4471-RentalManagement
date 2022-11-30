@@ -132,8 +132,8 @@ class Functions {
     }
 
     // Deducts a payment of money from the amount they owe
-    Boolean customerPay(Customer cust, float pay) {
-
+    Boolean customerPay(Customer cust, double pay) {
+        cust.payBalance(pay);
         // Placeholder
         return false;
     }
