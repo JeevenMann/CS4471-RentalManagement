@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Diagnostics;
 /*
 * Functions Class
 * Author: Shoumik Shill, 250935418
@@ -58,10 +58,15 @@ class Functions {
 
     // Add Customer to the database and return true if successful
     Boolean addCustomer(string name) {
+        // Generate customer UUID
+        Guid customerUUID = Guid.NewGuid();
         
-        // Customer needs a constructor I think
-        // Customer newCust = new Customer();
-        //customerList.Add(newCust);
+
+        // Add customer to localDB
+        Customer newCust = new Customer(customerUUID.ToString(),name);
+        customerList.Add(newCust);
+
+        // Code to add customer to Database
 
         // Placeholder
         return false;
@@ -101,7 +106,6 @@ class Functions {
 
     // Change param to RentedItem?
     Boolean returnItem(Customer cust, RentedItem item) {
-    // Boolean returnItem(Customer cust, RentedItem item) {
 
         cust.removeRentalItem(item);
 
@@ -110,12 +114,11 @@ class Functions {
         foreach (var i in itemList) {
             if (i.getItemName() == item.getItemRented()) {
                 i.itemReturned();
-                return true
+                return true;
             }
         }
    
 
-        // Placeholder
         return false;
     }
 
