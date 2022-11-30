@@ -5,12 +5,20 @@ using System.Linq;
 class Customer {
 
         string customerID;
+        string customerName;
         List<RentedItem> rentedItems = new List<RentedItem>();
+        double balance = 0.0;
 
-    double balance = 0.0;
+
+    public Customer(string customerName, string customerID) {
+        this.customerName = customerName;
+        this.customerID = customerID;
+    }
+
 
     public double getBalance()
     {
+        this.generateBalance();
         return this.balance;
     }
 
@@ -24,9 +32,6 @@ class Customer {
         this.balance = balance;
     }
 
-    public Customer(string customerID) {
-   this.customerID = customerID;
-}
 public void addRentalItem(RentedItem rentedItem) {
      rentedItems.Add(rentedItem);
 }
@@ -43,6 +48,10 @@ List<RentedItem> getRentalItems() {
 
 public string getCustomerID() {
     return this.customerID;
+}
+
+public string getCustomerName() {
+    return this.customerName;
 }
 
 }
