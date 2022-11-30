@@ -28,8 +28,10 @@ class RentedItem {
     public double calculateRent() {
             var cal = new System.Globalization.GregorianCalendar();
             var weekNum = cal.GetWeekOfYear(this.dateRented, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+            TimeSpan tt = this.dateRented - DateTime.Now;
 
-            var biweeklyAmount = weekNum % 2;
+            int totalWeeks = tt.Days/7;
+            var biweeklyAmount = totalWeeks % 2;
 
             return biweeklyAmount * rentCost;
 
