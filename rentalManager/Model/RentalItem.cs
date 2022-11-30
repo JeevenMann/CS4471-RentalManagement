@@ -1,61 +1,69 @@
-#include <Model.h>
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
+class RentalItem {
 
+        string itemName;
+        double itemCost;
+        int inStock;
+        List<Customer> customerList = new List<Customer>();  
 
-
-RentalItem::RentalItem(string itemName, double itemCost, int inStock) {
-    itemName = itemName;
-    itemCost = itemCost;
-    inStock = inStock;
+public RentalItem(string itemName, double itemCost, int inStock) {
+    this.itemName = itemName;
+    this.itemCost = itemCost;
+    this.inStock = inStock;
 }
 
- void RentalItem::itemRented() {
+ public void itemRented() {
     inStock -= 1;
 }
 
- void RentalItem::itemReturned() {
-    inStock += 1;
+ public void itemReturned() {
+    this.inStock = this.inStock + 1;
 }
 
-
-
-void RentalItem::addCustomer(Customer newCustomer) {
-    customerList.push_back(newCustomer);
+public void addCustomer(Customer newCustomer) {
+    customerList.Add(newCustomer);
 }
 
-void RentalItem::removeCustomer(Customer toRemove) {
-    auto it = find(customerList.begin(), customerList.end(), toRemove);
-    if(it != customerList.end())
-        customerList.erase(it, customerList.end());
+public void removeCustomer(Customer toRemove) {
+    var customerToRemove = customerList.SingleOrDefault(x => x.getCustomerID() == toRemove.getCustomerID());
+    if (customerToRemove != null) 
+        customerList.Remove(customerToRemove);
 }
 
-vector<Customer> RentalItem::getCustomers() {
-    return customerList;
+public List<Customer> getCustomers() {
+    return this.customerList;
 }
 
-int RentalItem::getItemsInStock() {
-    return inStock;
+public int getItemsInStock() {
+    return this.inStock;
 }
 
-double RentalItem::getItemCost() {
-    return itemCost;
+public double getItemCost() {
+    return this.itemCost;
 }
 
-string RentalItem::getItemName() {
-    return itemName;
+public string getItemName() {
+    return this.itemName;
 }
 
-void RentalItem::setItemCost(double newCost) {
-    itemCost = newCost;
+public void setItemCost(double newCost) {
+    this.itemCost = newCost;
 }
 
-void RentalItem::setItemsInStock(int newStock) {
-    inStock = newStock;
+public void setItemsInStock(int newStock) {
+    this.inStock = newStock;
 }
 
-
- /*void RentalItem::createRentalAgreement(Customer withCustomer, RentalItem rentalItem) {
-    withCustomer.addRentalItem(rentalItem);
+public void createRentalAgreement(Customer withCustomer, RentalItem rentalItem) {
+    RentedItem rentedItem = new RentedItem(DateTime.Now, rentalItem);
+    withCustomer.addRentalItem(rentedItem);
     rentalItem.addCustomer(withCustomer);
     rentalItem.itemRented();
-}*/
+}
+
+}
+
+ 

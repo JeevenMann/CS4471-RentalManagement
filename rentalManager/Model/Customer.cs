@@ -1,18 +1,48 @@
-#include <Model.h>
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
+class Customer {
 
-Customer::Customer(string customerID) {
-   customerID = customerID;
+        string customerID;
+        List<RentedItem> rentedItems = new List<RentedItem>();
+
+    double balance = 0.0;
+
+    public double getBalance()
+    {
+        return this.balance;
+    }
+
+    public void generateBalance()
+    {
+        var balance = 0.0;
+         foreach (var i in rentedItems) {
+            balance += i.calculateRent();
+        }
+
+        this.balance = balance;
+    }
+
+    public Customer(string customerID) {
+   this.customerID = customerID;
 }
-void Customer::addRentalItem(string todayDate,RentalItem rentedItem) {
-     rentedItems.insert(pair<string, RentalItem>(todayDate, rentedItem));
+public void addRentalItem(RentedItem rentedItem) {
+     rentedItems.Add(rentedItem);
 }
 
-void Customer::removeRentalItem(RentalItem toRemove) {
-    auto it = find(rentedItems.begin(), rentedItems.end(), toRemove);
-    if(it != rentedItems.end())
-        rentedItems.erase(it, rentedItems.end());}
+public void removeRentalItem(RentedItem toRemove) {
+    var itemToRemove = rentedItems.SingleOrDefault(x => x.getDateRented() == toRemove.getDateRented());
+    if (itemToRemove != null)
+        rentedItems.Remove(itemToRemove);
+}
 
-map<string, RentalItem> Customer::getRentalItems() {
+List<RentedItem> getRentalItems() {
     return rentedItems;
+}
+
+public string getCustomerID() {
+    return this.customerID;
+}
+
 }
