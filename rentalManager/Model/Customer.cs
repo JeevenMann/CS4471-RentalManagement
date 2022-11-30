@@ -8,7 +8,7 @@ class Customer {
         string customerName;
         List<RentedItem> rentedItems = new List<RentedItem>();
         double balance = 0.0;
-
+        double amountPaid = 0.0;
 
     public Customer(string customerName, string customerID) {
         this.customerName = customerName;
@@ -29,7 +29,7 @@ class Customer {
             balance += i.calculateRent();
         }
 
-        this.balance = balance;
+        this.balance = balance - amountPaid;
     }
 
 public void addRentalItem(RentedItem rentedItem) {
@@ -52,6 +52,10 @@ public string getCustomerID() {
 
 public string getCustomerName() {
     return this.customerName;
+}
+
+public void payBalance(double amountPaid) {
+    this.amountPaid += amountPaid;
 }
 
 }
