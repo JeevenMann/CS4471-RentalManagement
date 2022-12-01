@@ -12,19 +12,19 @@ class Functions {
 
     // ------------ Attributes ------------ 
 
-    int copyCustomerMoney;
+    
     List<RentalItem> itemList;
     List<Customer> customerList;
 
     // ------------ Item Functions ------------ 
 
     // Return a list of the Item List
-    List<RentalItem> returnItemList() { // Change string to RentalItem.cs??
+    public List<RentalItem> returnItemList() { // Change string to RentalItem.cs??
         return itemList;
     }
 
     // Add Item to the database and return true if successful
-    Boolean addItem(string name, double cost, int stock) {
+    public Boolean addItem(string name, double cost, int stock) {
         
         RentalItem newItem = new RentalItem(name, cost, stock);
         // Add to local DB
@@ -37,7 +37,7 @@ class Functions {
     }
 
     // Delete Item from database and return true if successful
-    Boolean deleteItem(int itemArrayPosition) {
+    public Boolean deleteItem(int itemArrayPosition) {
         // Remove from localDB
         itemList.RemoveAt(itemArrayPosition);
 
@@ -52,12 +52,12 @@ class Functions {
     // ------------ Customer Functions ------------ 
 
     // Return a list of the Customer List
-    List<Customer> returnCustomerList() { // Change string to Customer.cs?
+    public List<Customer> returnCustomerList() { // Change string to Customer.cs?
         return customerList;
     }
 
     // Add Customer to the database and return true if successful
-    Boolean addCustomer(string name) {
+    public Boolean addCustomer(string name) {
         // Generate customer UUID
         Guid customerUUID = Guid.NewGuid();
         
@@ -73,7 +73,7 @@ class Functions {
     }
 
     // Delete Customer from database and return true if successful
-    Boolean deleteCustomer(int customerArrayPosition) {
+    public Boolean deleteCustomer(int customerArrayPosition) {
 
         // Remove from localDB
         customerList.RemoveAt(customerArrayPosition);
@@ -87,7 +87,7 @@ class Functions {
     // ------------ Customer List Functions ------------ 
 
     // Adds the item to the customer's list
-    Boolean rentItem(Customer cust, RentalItem item) {
+    public Boolean rentItem(Customer cust, RentalItem item) {
 
         // Convert from Rental Item to Rented Item
         RentedItem rentedItem = new RentedItem(DateTime.Now, item);
@@ -105,7 +105,7 @@ class Functions {
     // Removes item from the customer's list
 
     // Change param to RentedItem?
-    Boolean returnItem(Customer cust, RentedItem item) {
+    public Boolean returnItem(Customer cust, RentedItem item) {
 
         cust.removeRentalItem(item);
 
@@ -125,14 +125,14 @@ class Functions {
     // ------------ Customer Payment Functions ------------ 
 
     // Return total amount a customer owes
-    double customerOwe(Customer cust) {
+    public double customerOwe(Customer cust) {
 
         // Placeholder
         return cust.getBalance();
     }
 
     // Deducts a payment of money from the amount they owe
-    Boolean customerPay(Customer cust, float pay) {
+    public Boolean customerPay(Customer cust, float pay) {
 
         // Placeholder
         return false;
