@@ -329,9 +329,36 @@ namespace rentalManager
                 case "2":
                     Console.WriteLine("Choose Customer:");
                     writeCustomerList();
-                    Console.ReadLine();
+                    Customer cusToPay;
+                    int cusToPayLoc;
+                    while(true)
+                    {
+                        try
+                        {
+                            cusToPayLoc = Int32.Parse(Console.ReadLine());
+                            cusToPay=function.returnCustomerList()[cusToPayLoc-1];
+                            break;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Please Enter a Valid Input");
+                        }
+                    }
                     Console.WriteLine("Enter Amount Paid:");
-                    Console.ReadLine();
+                    double amountPayed; 
+                    while(true)
+                    {
+                        try
+                        {
+                            amountPayed = Convert.ToDouble(Console.ReadLine());
+                            function.customerPay(cusToPayLoc,amountPayed);
+                            break;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Please Enter a Valid Input");
+                        }
+                    }
                     Console.WriteLine("Amount Deducted from Amount Owed");
                     //Payment Function
                     return true;
