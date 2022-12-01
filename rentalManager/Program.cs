@@ -22,7 +22,7 @@ namespace rentalManager
             List<RentalItem> rentItems = function.returnItemList();
             if(rentItems.Count==0) Console.WriteLine("List is Empty");
             for(int i=0; i< rentItems.Count; i++){
-                Console.WriteLine((i+1)+". "+rentItems[i].getItemName());
+                Console.WriteLine((i+1)+". "+rentItems[i].getItemName()+"   "+rentItems[i].getItemsInStock());
             } 
         }
 
@@ -110,13 +110,21 @@ namespace rentalManager
         ////////////////////////// CUSTOMER MENU //////////////////////////
 
         //Prints the Customer List//
-        private static void writeCustomerList()
+        private static bool writeCustomerList()
         {
             List<Customer> custList = function.returnCustomerList();
-            if(custList.Count==0) Console.WriteLine("List is Empty");
-            for(int i=0; i< custList.Count; i++){
-                Console.WriteLine((i+1)+". "+custList[i].getCustomerName());
-            } 
+            if(custList.Count==0)
+            {
+                Console.WriteLine("List is Empty");
+                return false;
+            }
+            else
+            {
+                for(int i=0; i< custList.Count; i++){
+                    Console.WriteLine((i+1)+". "+custList[i].getCustomerName());
+                }
+                return true; 
+            }
         }
 
 
@@ -146,24 +154,27 @@ namespace rentalManager
                     return true;
                 case "3":
                     Console.WriteLine("Choose Customer From List:");
-                    writeCustomerList();
-                    int arrLoc;
-                    while(true)
+                    if(writeCustomerList())
                     {
-                        try
+                        int arrLoc;
+                        while(true)
                         {
-                            arrLoc = Int32.Parse(Console.ReadLine());
-                            function.deleteCustomer(arrLoc-1);
-                            break;
+                            try
+                            {
+                                arrLoc = Int32.Parse(Console.ReadLine());
+                                function.deleteCustomer(arrLoc-1);
+                                break;
+                            }
+                            catch
+                            {
+                                Console.WriteLine("Please Enter a Valid Input");
+                            }
                         }
-                        catch
-                        {
-                            Console.WriteLine("Please Enter a Valid Input");
-                        }
+                        //delete customer function/command
+                        Console.Clear();
+                        Console.WriteLine("Customer Deleted");
                     }
-                    //delete customer function/command
-                    Console.Clear();
-                    Console.WriteLine("Customer Deleted");
+                   
                     return true;
                 case "4":
                     return false;
@@ -205,70 +216,15 @@ namespace rentalManager
             {
                 case "1":
                     Console.WriteLine("Choose Customer:");
-                    writeCustomerList();
-                    Customer cusToRent;
-                    while(true)
+                    if(writeCustomerList())
                     {
-                        try
-                        {
-                            int cusLoc = Int32.Parse(Console.ReadLine());
-                            cusToRent=function.returnCustomerList()[cusLoc-1];
-                            break;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Please Enter a Valid Input");
-                        }
-                    }
-                    Console.WriteLine("Choose Item To Rent:");
-                    writeItemList();
-                    RentalItem itemToRent;
-                    while(true)
-                    {
-                        try
-                        {
-                            int iLoc = Int32.Parse(Console.ReadLine());
-                            itemToRent=function.returnItemList()[iLoc-1];
-                            break;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Please Enter a Valid Input");
-                        }
-                    }
-                    function.rentItem(cusToRent,itemToRent);
-                    //ADD item to customer's item list
-                    Console.WriteLine("Item Added to Customer's Item List");
-                    return true;
-                case "2":
-                    Console.WriteLine("Choose Customer:");
-                    writeCustomerList();
-                    Customer cusToRentR;
-                    while(true)
-                    {
-                        try
-                        {
-                            int cusLoc = Int32.Parse(Console.ReadLine());
-                            cusToRentR=function.returnCustomerList()[cusLoc-1];
-                            break;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Please Enter a Valid Input");
-                        }
-                    }
-                    Console.WriteLine("Choose Item To Remove:");
-                    //LIST OF CUSTOMER"S ITEMS
-                    if(writeCustomersItems(cusToRentR))
-                    {
-                        RentedItem itemToRentR;
+                        Customer cusToRent;
                         while(true)
                         {
                             try
                             {
-                                int iLoc = Int32.Parse(Console.ReadLine());
-                                itemToRentR=cusToRentR.getRentalItems()[iLoc-1];
-                                function.returnItem(cusToRentR,itemToRentR);
+                                int cusLoc = Int32.Parse(Console.ReadLine());
+                                cusToRent=function.returnCustomerList()[cusLoc-1];
                                 break;
                             }
                             catch
@@ -276,12 +232,71 @@ namespace rentalManager
                                 Console.WriteLine("Please Enter a Valid Input");
                             }
                         }
-
-                        Console.WriteLine("Item Removed to Customer's Item List");
+                        Console.WriteLine("Choose Item To Rent:");
+                        writeItemList();
+                        RentalItem itemToRent;
+                        while(true)
+                        {
+                            try
+                            {
+                                int iLoc = Int32.Parse(Console.ReadLine());
+                                itemToRent=function.returnItemList()[iLoc-1];
+                                break;
+                            }
+                            catch
+                            {
+                                Console.WriteLine("Please Enter a Valid Input");
+                            }
+                        }
+                        function.rentItem(cusToRent,itemToRent);
+                        //ADD item to customer's item list
+                        Console.WriteLine("Item Added to Customer's Item List");
                     }
-                    else
+                    return true;
+                case "2":
+                    Console.WriteLine("Choose Customer:");
+                    if(writeCustomerList())
                     {
-                        Console.WriteLine("Returning to Rental Menu");
+                        Customer cusToRentR;
+                        while(true)
+                        {
+                            try
+                            {
+                                int cusLoc = Int32.Parse(Console.ReadLine());
+                                cusToRentR=function.returnCustomerList()[cusLoc-1];
+                                break;
+                            }
+                            catch
+                            {
+                                Console.WriteLine("Please Enter a Valid Input");
+                            }
+                        }
+                        Console.WriteLine("Choose Item To Remove:");
+                        //LIST OF CUSTOMER"S ITEMS
+                        if(writeCustomersItems(cusToRentR))
+                        {
+                            RentedItem itemToRentR;
+                            while(true)
+                            {
+                                try
+                                {
+                                    int iLoc = Int32.Parse(Console.ReadLine());
+                                    itemToRentR=cusToRentR.getRentalItems()[iLoc-1];
+                                    function.returnItem(cusToRentR,itemToRentR);
+                                    break;
+                                }
+                                catch
+                                {
+                                    Console.WriteLine("Please Enter a Valid Input");
+                                }
+                            }
+
+                            Console.WriteLine("Item Removed to Customer's Item List");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Returning to Rental Menu");
+                        }
                     }
                     //ADD item to customer's item list
                     return true;
@@ -307,59 +322,68 @@ namespace rentalManager
             {
                 case "1":
                     Console.WriteLine("Choose Customer:");
-                    writeCustomerList();
-                    Customer cusToShow;
-                    while(true)
+                    if(writeCustomerList())
                     {
-                        try
+                        Customer cusToShow;
+                        while(true)
                         {
-                            int cusLoc = Int32.Parse(Console.ReadLine());
-                            cusToShow=function.returnCustomerList()[cusLoc-1];
-                            break;
+                            try
+                            {
+                                int cusLoc = Int32.Parse(Console.ReadLine());
+                                cusToShow=function.returnCustomerList()[cusLoc-1];
+                                break;
+                            }
+                            catch
+                            {
+                                Console.WriteLine("Please Enter a Valid Input");
+                            }
                         }
-                        catch
-                        {
-                            Console.WriteLine("Please Enter a Valid Input");
-                        }
+                        //Print Customer's List with Amount Owing
+                        Console.WriteLine("Amount Owed: "+ cusToShow.getBalance());
+                        writeCustomersItems(cusToShow);
                     }
-                    //Print Customer's List with Amount Owing
-                    Console.WriteLine("Amount Owed: "+ cusToShow.getBalance());
-                    writeCustomersItems(cusToShow);
                     return true;
                 case "2":
                     Console.WriteLine("Choose Customer:");
-                    writeCustomerList();
-                    Customer cusToPay;
-                    int cusToPayLoc;
-                    while(true)
+                    if(writeCustomerList())
                     {
-                        try
+                        Customer cusToPay;
+                        int cusToPayLoc;
+                        while(true)
                         {
-                            cusToPayLoc = Int32.Parse(Console.ReadLine());
-                            cusToPay=function.returnCustomerList()[cusToPayLoc-1];
-                            break;
+                            try
+                            {
+                                cusToPayLoc = Int32.Parse(Console.ReadLine());
+                                cusToPay=function.returnCustomerList()[cusToPayLoc-1];
+                                break;
+                            }
+                            catch
+                            {
+                                Console.WriteLine("Please Enter a Valid Input");
+                            }
                         }
-                        catch
+                        Console.WriteLine("Enter Amount Paid:");
+                        double amountPayed; 
+                        while(true)
                         {
-                            Console.WriteLine("Please Enter a Valid Input");
+                            try
+                            {
+                                amountPayed = Convert.ToDouble(Console.ReadLine());
+                                function.customerPay(cusToPayLoc,amountPayed);
+                                break;
+                            }
+                            catch
+                            {
+                                Console.WriteLine("Please Enter a Valid Input");
+                            }
                         }
+                        Console.WriteLine("Amount Deducted from Amount Owed");
                     }
-                    Console.WriteLine("Enter Amount Paid:");
-                    double amountPayed; 
-                    while(true)
+                    else
                     {
-                        try
-                        {
-                            amountPayed = Convert.ToDouble(Console.ReadLine());
-                            function.customerPay(cusToPayLoc,amountPayed);
-                            break;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Please Enter a Valid Input");
-                        }
+                        Console.WriteLine("Returing to Payment Menu");
                     }
-                    Console.WriteLine("Amount Deducted from Amount Owed");
+
                     //Payment Function
                     return true;
                 case "3":
