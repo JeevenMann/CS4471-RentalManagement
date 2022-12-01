@@ -37,7 +37,7 @@ public void removeRentalItem(RentedItem toRemove) {
         rentedItems.Remove(itemToRemove);
 }
 
-List<RentedItem> getRentalItems() {
+public List<RentedItem> getRentalItems() {
     return rentedItems;
 }
 

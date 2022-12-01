@@ -19,7 +19,7 @@ class Functions {
     // ------------ Item Functions ------------ 
 
     // Return a list of the Item List
-    public List<RentalItem> returnItemList() { // Change string to RentalItem.cs??
+    public List<RentalItem> returnItemList() {
         return itemList;
     }
 
