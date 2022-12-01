@@ -13,8 +13,8 @@ class Functions {
     // ------------ Attributes ------------ 
 
     
-    List<RentalItem> itemList;
-    List<Customer> customerList;
+    List<RentalItem> itemList = new List<RentalItem>();
+    List<Customer> customerList = new List<Customer>();
 
     // ------------ Item Functions ------------ 
 
