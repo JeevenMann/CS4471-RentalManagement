@@ -22,7 +22,7 @@ namespace rentalManager
             List<RentalItem> rentItems = function.returnItemList();
             if(rentItems.Count==0) Console.WriteLine("List is Empty");
             for(int i=0; i< rentItems.Count; i++){
-                Console.WriteLine((i+1)+". "+rentItems[i].getItemName()+"   "+rentItems[i].getItemsInStock());
+                Console.WriteLine("{0,-0}{1,-0}{2,-10} {3,-1} {4,-7}{5,10} {6,1}",(i+1),". ",rentItems[i].getItemName(),"Cost:",rentItems[i].getItemCost(),"Stock:",rentItems[i].getItemsInStock());
             } 
         }
 
