@@ -132,7 +132,9 @@ class Functions {
     }
 
     // Deducts a payment of money from the amount they owe
-    public Boolean customerPay(Customer cust, float pay) {
+    public Boolean customerPay(int customerIndex, double pay) {
+
+        this.customerList[customerIndex].reducePayment(pay);
 
         // Placeholder
         return false;
