@@ -134,6 +134,7 @@ class Functions {
     // Deducts a payment of money from the amount they owe
     public Boolean customerPay(int customerIndex, double pay) {
 
+        
         this.customerList[customerIndex].payBalance(pay);
         
         // Placeholder
