@@ -31,7 +31,11 @@ class RentedItem {
             TimeSpan tt = this.dateRented - DateTime.Now;
 
             int totalWeeks = tt.Days/7;
-            var biweeklyAmount = (totalWeeks % 2) - 1;
+            var biweeklyAmount = (totalWeeks % 2);
+
+            if (biweeklyAmount > 0) {
+                biweeklyAmount -= 1;
+            }
 
             return (biweeklyAmount * rentCost) + (rentCost);
 
