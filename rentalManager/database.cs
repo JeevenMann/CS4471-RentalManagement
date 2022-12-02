@@ -1,6 +1,10 @@
 //Add MySql Library
 using MySql.Data.MySqlClient;
-
+/*
+* Database Class
+* Author: Luke Edward, 251107324
+* Connect to the database with auth credentials and run appropriate queries
+*/
 class database
 {
     private MySqlConnection connection;
