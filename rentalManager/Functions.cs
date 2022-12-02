@@ -16,10 +16,17 @@ class Functions {
     List<RentalItem> itemList = new List<RentalItem>();
     List<Customer> customerList = new List<Customer>();
 
+    /* Initialize database */
+    static database db = new database();
+
     // ------------ Item Functions ------------ 
 
     // Return a list of the Item List
     public List<RentalItem> returnItemList() {
+
+        List<string> dbItemList = db.GetItemList();
+        //this line below will print out all the items in the db
+        //dbItemList.ForEach(Console.WriteLine);
         return itemList;
     }
 
@@ -31,17 +38,20 @@ class Functions {
         itemList.Add(newItem);
 
         // Code to add to database
-
+        db.InsertItem(name, cost, stock);
         // Placeholder
         return false;
     }
 
     // Delete Item from database and return true if successful
     public Boolean deleteItem(int itemArrayPosition) {
+        
+
+        // Database Code 
+        string toDelete = itemList[itemArrayPosition].getItemName();
+        db.DeleteItem(toDelete);
         // Remove from localDB
         itemList.RemoveAt(itemArrayPosition);
-
-        // Code to delete item from database
 
         // Placeholder
         return false;
@@ -53,6 +63,10 @@ class Functions {
 
     // Return a list of the Customer List
     public List<Customer> returnCustomerList() { // Change string to Customer.cs?
+        
+        List<string> dbCustomerList = db.GetCustomerList();
+        //this line below will print out all the items in the db
+        //dbCustomerList.ForEach(Console.WriteLine);
         return customerList;
     }
 
@@ -62,12 +76,13 @@ class Functions {
         Guid customerUUID = Guid.NewGuid();
         
 
-        // Add customer to localDB
-        Customer newCust = new Customer(name, customerUUID.ToString());
+        // Add customer to list
+        string custID = customerUUID.ToString();
+        Customer newCust = new Customer(name, custID);
         customerList.Add(newCust);
 
-        // Code to add customer to Database
-
+        // Database code
+        db.InsertCustomer(custID, name);
         // Placeholder
         return false;
     }
@@ -75,12 +90,13 @@ class Functions {
     // Delete Customer from database and return true if successful
     public Boolean deleteCustomer(int customerArrayPosition) {
 
+        //db code
+        string toDelete = customerList[customerArrayPosition].getCustomerID();
+        db.DeleteCustomer(toDelete);
+
         // Remove from localDB
         customerList.RemoveAt(customerArrayPosition);
 
-        // Code to delete Customer from database
-
-        // Placeholder
         return false;
     }
 
@@ -98,7 +114,11 @@ class Functions {
         // Decrease Stock
         item.itemRented();
 
-        // Placeholder
+        // db code
+        string name = cust.getCustomerName();
+        string itemName = item.getItemName();
+        double cost = item.getItemCost();
+        db.RentItem(name, itemName, cost);
         return false;
     }
 
@@ -106,7 +126,13 @@ class Functions {
 
     // Change param to RentedItem?
     public Boolean returnItem(Customer cust, RentedItem item) {
+        
+        //db code
+        string name = cust.getCustomerName();
+        string itemName = item.getItemName();
+        db.ReturnItem(name, itemName);
 
+        // cust list
         cust.removeRentalItem(item);
 
         // Increase stock
@@ -127,15 +153,23 @@ class Functions {
     // Return total amount a customer owes
     public double customerOwe(Customer cust) {
 
-        // Placeholder
-        CustomerSetBalance(cust.customerName, cust.getBalance);
+        // db code
+        string name = cust.getCustomerName();
+        double balance = cust.getBalance();
+        db.CustomerSetBalance(name, balance);
+
+
         return cust.getBalance();
     }
 
     // Deducts a payment of money from the amount they owe
     public Boolean customerPay(int customerIndex, double pay) {
-
         
+        //db code
+        string name = customerList[customerIndex].getCustomerName();
+        db.CustomerPayBalance(name, pay);
+
+        //list code
         this.customerList[customerIndex].payBalance(pay);
         
         // Placeholder

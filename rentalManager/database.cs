@@ -75,9 +75,9 @@ class database
         
     // --------------------------- Insert Functions ------------------------------ //
     //Insert statement
-    public void InsertCustomer(string name)
+    public void InsertCustomer(string customerID, string name)
     {
-        string query = $"INSERT INTO customers (customer_name, balance, amount_paid) VALUES('{name}', '0', '0')";
+        string query = $"INSERT INTO customers (customer_id, customer_name, balance, amount_paid) VALUES('{customerID}','{name}', '0', '0')";
 
         //open connection
         if (this.OpenConnection() == true)
@@ -113,7 +113,7 @@ class database
     public void RentItem(string customerName, string itemName, double cost)
     {
         string query = $"INSERT INTO rents (customer_name, item_name, rent_cost, date_rented) VALUES('{customerName}', '{itemName}', '{cost}',CURDATE())";
-        IncreaseStock(itemName);
+        DecreaseStock(itemName);
 
         //open connection
         if (this.OpenConnection() == true)
@@ -133,7 +133,7 @@ class database
     public void ReturnItem(string customerName, string itemName)
     {
         string query = $"DELETE FROM rents WHERE item_name='{itemName} AND customer_name='{customerName}'";
-        DecreaseStock();
+        IncreaseStock();
         if (this.OpenConnection() == true)
         {
             MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -251,9 +251,9 @@ class database
     }
 
     //Delete statement
-    public void DeleteCustomer(string customerName)
+    public void DeleteCustomer(string customerID)
     {
-        string query = $"DELETE FROM customers WHERE customer_name='{customerName}'";
+        string query = $"DELETE FROM customers WHERE customer_id='{customerID}'";
 
         if (this.OpenConnection() == true)
         {
