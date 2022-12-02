@@ -128,6 +128,7 @@ class Functions {
     public double customerOwe(Customer cust) {
 
         // Placeholder
+        CustomerSetBalance(cust.customerName, cust.getBalance);
         return cust.getBalance();
     }
 

@@ -1,7 +1,7 @@
 //Add MySql Library
 using MySql.Data.MySqlClient;
 
-class DBConnect
+class database
 {
     private MySqlConnection connection;
     private string server;
@@ -106,7 +106,7 @@ class DBConnect
         }
     }
 
-    public void RentItem(string custName, string itemName, int cost)
+    public void RentItem(string custName, string itemName, double cost)
     {
         string query = $"INSERT INTO rents (customer_name, item_name, rent_cost, date_rented) VALUES('{custName}', '{itemName}', '{cost}',CURDATE())";
         IncreaseStock();
@@ -174,9 +174,31 @@ class DBConnect
     }
 
     //Update statement
-    public void Update()
+    public void CustomerPayBalance(string customerName, double payment)
     {
-        string query = "UPDATE tableinfo SET name='Joe', age='22' WHERE name='John Smith'";
+        string query = $"UPDATE customers SET amount_paid = amount_paid + {payment} WHERE customer_name ='{customerName}'";
+
+        //Open connection
+        if (this.OpenConnection() == true)
+        {
+            //create mysql command
+            MySqlCommand cmd = new MySqlCommand();
+            //Assign the query using CommandText
+            cmd.CommandText = query;
+            //Assign the connection using Connection
+            cmd.Connection = connection;
+
+            //Execute query
+            cmd.ExecuteNonQuery();
+
+            //close connection
+            this.CloseConnection();
+        }
+    }
+
+    public void CustomerSetBalance(string customerName, double newBalance)
+    {
+        string query = $"UPDATE customers SET balance = {newBalance} WHERE customer_name ='{customerName}'";
 
         //Open connection
         if (this.OpenConnection() == true)
@@ -240,13 +262,13 @@ class DBConnect
     //Select statement
     public List< string >[] Select()
     {
-        string query = "SELECT * FROM tableinfo";
+        string query = "SELECT customer_name FROM customers";
 
         //Create a list to store the result
-        List< string >[] list = new List< string >[3];
+        List< string >[] list = new List< string >[1];
         list[0] = new List< string >();
-        list[1] = new List< string >();
-        list[2] = new List< string >();
+        //list[1] = new List< string >();
+        //list[2] = new List< string >();
 
         //Open connection
         if (this.OpenConnection() == true)
@@ -259,9 +281,9 @@ class DBConnect
             //Read the data and store them in the list
             while (dataReader.Read())
             {
-                list[0].Add(dataReader["id"] + "");
-                list[1].Add(dataReader["name"] + "");
-                list[2].Add(dataReader["age"] + "");
+                list[0].Add(dataReader["name"] + "");
+                // list[1].Add(dataReader["name"] + "");
+                // list[2].Add(dataReader["age"] + "");
             }
 
             //close Data Reader
