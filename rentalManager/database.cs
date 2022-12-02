@@ -10,7 +10,7 @@ class database
     private string password;
 
     //Constructor
-    public DBConnect()
+    public database()
     {
         Initialize();
     }
@@ -71,9 +71,9 @@ class database
         
     // --------------------------- Insert Functions ------------------------------ //
     //Insert statement
-    public void InsertCustomer(string name, Guid guid)
+    public void InsertCustomer(string name)
     {
-        string query = $"INSERT INTO customers (customer_name, balance, amount_paid) VALUES('{name}', '0', '0',{guid.ToString()})";
+        string query = $"INSERT INTO customers (customer_name, balance, amount_paid) VALUES('{name}', '0', '0')";
 
         //open connection
         if (this.OpenConnection() == true)
@@ -106,10 +106,10 @@ class database
         }
     }
 
-    public void RentItem(string custName, string itemName, double cost)
+    public void RentItem(string customerName, string itemName, double cost)
     {
-        string query = $"INSERT INTO rents (customer_name, item_name, rent_cost, date_rented) VALUES('{custName}', '{itemName}', '{cost}',CURDATE())";
-        IncreaseStock();
+        string query = $"INSERT INTO rents (customer_name, item_name, rent_cost, date_rented) VALUES('{customerName}', '{itemName}', '{cost}',CURDATE())";
+        IncreaseStock(itemName);
 
         //open connection
         if (this.OpenConnection() == true)
@@ -121,6 +121,19 @@ class database
             cmd.ExecuteNonQuery();
 
             //close connection
+            this.CloseConnection();
+        }
+    }
+
+    //Return Item statement
+    public void ReturnItem(string customerName, string itemName)
+    {
+        string query = $"DELETE FROM rents WHERE item_name='{itemName} AND customer_name='{customerName}'";
+        DecreaseStock();
+        if (this.OpenConnection() == true)
+        {
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.ExecuteNonQuery();
             this.CloseConnection();
         }
     }
@@ -246,29 +259,25 @@ class database
         }
     }
 
-    //Return Item statement
-    public void ReturnItem(string customerName, string itemName)
-    {
-        string query = $"DELETE FROM rents WHERE item_name='{itemName} AND customer_name='{customerName}'";
-        DecreaseStock();
-        if (this.OpenConnection() == true)
-        {
-            MySqlCommand cmd = new MySqlCommand(query, connection);
-            cmd.ExecuteNonQuery();
-            this.CloseConnection();
-        }
-    }
+    
 
     //Select statement
-    public List< string >[] Select()
+    public List< string >[] GetCustomerList()
     {
-        string query = "SELECT customer_name FROM customers";
+        string query = "SELECT customers.customer_id, customers.customer_name, customers.balance, customers.amount_paid, items.item_name, rents.rent_cost, rents.date_rented 
+                        "FROM customers JOIN rents ON (rents.item_id = customers.customer_id) 
+                        "JOIN items ON (items.item_id = rents.customer_id)";
 
         //Create a list to store the result
-        List< string >[] list = new List< string >[1];
+        List< string >[] list = new List< string >[7];
         list[0] = new List< string >();
-        //list[1] = new List< string >();
-        //list[2] = new List< string >();
+        list[1] = new List< string >();
+        list[2] = new List< string >();
+        list[3] = new List< string >();
+        list[4] = new List< string >();
+        list[5] = new List< string >();
+        list[6] = new List< string >();
+
 
         //Open connection
         if (this.OpenConnection() == true)
@@ -281,9 +290,64 @@ class database
             //Read the data and store them in the list
             while (dataReader.Read())
             {
-                list[0].Add(dataReader["name"] + "");
-                // list[1].Add(dataReader["name"] + "");
-                // list[2].Add(dataReader["age"] + "");
+                list[0].Add(dataReader["customerID"] + "");
+                list[1].Add(dataReader["customerName"] + "");
+                list[2].Add(dataReader["balance"] + "");
+                list[3].Add(dataReader["amountPaid"] + "");
+                list[4].Add(dataReader["itemName"] + "");
+                list[5].Add(dataReader["rentalCost"] + "");
+                list[6].Add(dataReader["dateRented"] + "");
+
+
+            }
+
+            //close Data Reader
+            dataReader.Close();
+
+            //close Connection
+            this.CloseConnection();
+
+            //return list to be displayed
+            return list;
+        }
+        else
+        {
+            return list;
+        }
+    }
+    
+    //Select statement
+    public List< string >[] GetItemList()
+    {
+        string query = "SELECT items.item_id, items.item_name, items.cost, items.stock, customers.customer_name 
+                        "FROM items JOIN rents ON (rents.item_id = items.item_id) 
+                        "JOIN customers ON (customers.customer_id = rents.customer_id)";
+
+        //Create a list to store the result
+        List< string >[] list = new List< string >[5];
+        list[0] = new List< string >();
+        list[1] = new List< string >();
+        list[2] = new List< string >();
+        list[3] = new List< string >();
+        list[4] = new List< string >();
+
+        //Open connection
+        if (this.OpenConnection() == true)
+        {
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+            
+            //Read the data and store them in the list
+            while (dataReader.Read())
+            {
+                list[0].Add(dataReader["itemID"] + "");
+                list[1].Add(dataReader["itemName"] + "");
+                list[2].Add(dataReader["itemCost"] + "");
+                list[3].Add(dataReader["itemStock"] + "");
+                list[4].Add(dataReader["customerName"] + "");
+
             }
 
             //close Data Reader
@@ -301,6 +365,8 @@ class database
         }
     }
 
+
+    
     //Count statement
     public int Count()
     {
