@@ -17,6 +17,7 @@ namespace rentalManager
         ////////////////////////// ITEM MENU //////////////////////////////
 
         //Displays the list of items
+        //returns false if list is empty, true otherwise
         private static bool writeItemList()
         {
             List<RentalItem> rentItems = function.returnItemList();
@@ -33,7 +34,7 @@ namespace rentalManager
             return true; 
         }
 
-        //Item Menu
+        //Item Menu function
         private static bool ItemMenu()
         {
             Console.WriteLine("\n||| ITEM MENU |||\n"+
@@ -79,7 +80,7 @@ namespace rentalManager
                             Console.WriteLine("Please Enter a Valid Input");
                         }
                     }
-                    //Add Item to database function/command
+                    //Add Item to database function
                     function.addItem(iname, cost, stock);
                     Console.Clear();
                     Console.WriteLine("Item Added");
@@ -94,6 +95,7 @@ namespace rentalManager
                             try
                             {
                                 arrLoc = Int32.Parse(Console.ReadLine());
+                                //attempt to delete item
                                 function.deleteItem(arrLoc-1);
                                 break;
                             }
@@ -102,8 +104,6 @@ namespace rentalManager
                                 Console.WriteLine("Please Enter a Valid Input");
                             }
                         }
-                        //delete item function/command
-                        //function.deleteItem(arrLoc-1);
                         Console.Clear();
                         Console.WriteLine("Item Deleted");
                     }
@@ -118,7 +118,8 @@ namespace rentalManager
         ///////////////////////////////////////////////////////////////////
         ////////////////////////// CUSTOMER MENU //////////////////////////
 
-        //Prints the Customer List//
+        //Prints the Customer List
+        // returns false if list is empty, true otherwise
         private static bool writeCustomerList()
         {
             List<Customer> custList = function.returnCustomerList();
@@ -138,10 +139,9 @@ namespace rentalManager
         }
 
 
-        //This is the customer menu, allows you to add and delete customers
+        //This is the customer menu function, allows you to add and delete customers
         private static bool CustomerMenu()
         {
-            //Console.Clear();
             Console.WriteLine("\n||| CUSTOMER MENU |||\n"+
             "1. Customer List\n"+
             "2. Add Customer\n"+
@@ -172,6 +172,7 @@ namespace rentalManager
                             try
                             {
                                 arrLoc = Int32.Parse(Console.ReadLine());
+                                //attempt to delete customer
                                 function.deleteCustomer(arrLoc-1);
                                 break;
                             }
@@ -180,7 +181,6 @@ namespace rentalManager
                                 Console.WriteLine("Please Enter a Valid Input");
                             }
                         }
-                        //delete customer function/command
                         Console.Clear();
                         Console.WriteLine("Customer Deleted");
                     }
@@ -198,6 +198,9 @@ namespace rentalManager
         ///////////////////////////////////////////////////////////////////
         ////////////////////////// RENTAL MENU //////////////////////////////
 
+        //prints the list of a customer's items
+        //customer the Customer datatype 
+        //returns false if the list is empty, true otherwise
         private static bool writeCustomersItems(Customer customer)
         {
             List<RentedItem> itemList = customer.getRentalItems();
@@ -215,6 +218,7 @@ namespace rentalManager
             }
         }
 
+        //the rental menu function
         private static bool RentalMenu()
         {
             Console.WriteLine("\n||| RENTAL MENU |||\n"+
@@ -259,8 +263,8 @@ namespace rentalManager
                                     Console.WriteLine("Please Enter a Valid Input");
                                 }
                             }
-                            function.rentItem(cusToRent,itemToRent);
                             //ADD item to customer's item list
+                            function.rentItem(cusToRent,itemToRent);
                             Console.WriteLine("Item Added to Customer's Item List");
                         }
                     }
@@ -284,7 +288,6 @@ namespace rentalManager
                             }
                         }
                         Console.WriteLine("Choose Item To Remove:");
-                        //LIST OF CUSTOMER"S ITEMS
                         if(writeCustomersItems(cusToRentR))
                         {
                             RentedItem itemToRentR;
@@ -294,6 +297,7 @@ namespace rentalManager
                                 {
                                     int iLoc = Int32.Parse(Console.ReadLine());
                                     itemToRentR=cusToRentR.getRentalItems()[iLoc-1];
+                                    //remove item from customer's list
                                     function.returnItem(cusToRentR,itemToRentR);
                                     break;
                                 }
@@ -307,7 +311,7 @@ namespace rentalManager
                         }
                         
                     }
-                    //ADD item to customer's item list
+                    
                     return true;
                 case "3":
                     return false;
@@ -320,6 +324,7 @@ namespace rentalManager
         /////////////////////////////////////////////////////////////////////
         ////////////////////////// PAYMENT MENU //////////////////////////////
 
+        //payment menu function
         private static bool PaymentMenu()
         {
             Console.WriteLine("\n||| PAYMENT MENU |||\n"+
@@ -380,6 +385,7 @@ namespace rentalManager
                             try
                             {
                                 amountPayed = Convert.ToDouble(Console.ReadLine());
+                                //attempt to deduct amount
                                 function.customerPay(cusToPayLoc-1,amountPayed);
                                 break;
                             }
@@ -395,7 +401,6 @@ namespace rentalManager
                         Console.WriteLine("Returing to Payment Menu");
                     }
 
-                    //Payment Function
                     return true;
                 case "3":
                     return false;
@@ -421,6 +426,7 @@ namespace rentalManager
             "5. Exit");
         }
 
+        //the main menu function/interface
         private static bool MainMenu()
         {
             bool inSideMenu=true;
@@ -455,6 +461,8 @@ namespace rentalManager
 
         ///////////////////////////////////////////////////////////////////////
         ////////////////////////// MAIN FUNCTION //////////////////////////////
+
+        //the main
         static void Main(string[] args)
         {
          
