@@ -39,9 +39,9 @@ class RentedItem {
 
             // Get the difference between the dateRented and the current date
             TimeSpan tt = this.dateRented - DateTime.Now;
-
+            double days = tt.Days/7;
             // Get the total amount of weeks floored
-            int totalWeeks = Math.floor(tt.Days/7);
+            double totalWeeks = Math.Floor(days);
 
             // Mod by 2 to get the bi-weekly amount of weeks
             var biweeklyAmount = (totalWeeks % 2);

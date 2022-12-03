@@ -16,11 +16,24 @@ class Functions {
     List<Customer> customerList = new List<Customer>();
     
 
+    /* Initialize database */
+    static Database db = new Database();
 
-    // ------------ Item List Methods ------------ 
+    // ------------ Item Functions ------------ 
 
     // Return a list of the Item List
     public List<RentalItem> returnItemList() {
+
+
+        List<string>[] dbItemList = new List< string>[5];
+
+        try {
+            dbItemList = db.GetItemList();
+        }
+        catch (Exception ex) {
+        }
+
+        
         return itemList;
     }
 
@@ -31,20 +44,48 @@ class Functions {
         // Add to local DB
         itemList.Add(newItem);
 
+        // Code to add to database
+        try {
+            db.InsertItem(name, cost, stock);
+        }
+        catch (Exception ex) {
+        }
+        // Placeholder
     }
 
     // Delete Item from database and return true if successful
-    public void deleteItem(int itemArrayPosition) {
+    public Boolean deleteItem(int itemArrayPosition) {
+        
 
+        // Database Code 
+        string toDelete = itemList[itemArrayPosition].getItemName();
+        
+        // Code to add to database
+        try {
+            db.DeleteItem(toDelete);
+        }
+        catch (Exception ex) {
+        }
         // Remove from localDB
         itemList.RemoveAt(itemArrayPosition);
 
+        // Placeholder
+        return false;
     }
 
     // ------------ Customer List Methods ------------ 
 
     // Return a list of the Customer List
-    public List<Customer> returnCustomerList() {
+    public List<Customer> returnCustomerList() { // Change string to Customer.cs?
+        
+        List<string>[] dbCustomerList = new List< string>[7];
+        
+        try {
+            dbCustomerList = db.GetCustomerList();
+        }
+        catch (Exception ex) {
+        }
+
         return customerList;
     }
 
@@ -54,15 +95,37 @@ class Functions {
         // Generate customer UUID
         Guid customerUUID = Guid.NewGuid();
 
-        // Add customer to localDB
-        Customer newCust = new Customer(name, customerUUID.ToString());
+        // Add customer to list
+        string custID = customerUUID.ToString();
+        Customer newCust = new Customer(name, custID);
         customerList.Add(newCust);
+
+        // Database code
+        try {
+            db.InsertCustomer(custID, name);
+
+        }
+        catch (Exception ex) {
+        }
+        // Placeholder
     }
 
     // Delete Customer from database and return true if successful
-    public void deleteCustomer(int customerArrayPosition) {
+    public Boolean deleteCustomer(int customerArrayPosition) {
+
+        //db code
+        string toDelete = customerList[customerArrayPosition].getCustomerID();
+        
+        try {
+            db.DeleteCustomer(toDelete);
+        }
+        catch (Exception ex) {
+        }
+
         // Remove from localDB
         customerList.RemoveAt(customerArrayPosition);
+
+        return false;
     }
 
     // ------------ Rental Management Methods ------------ 
@@ -78,12 +141,33 @@ class Functions {
 
         // Decrease Stock
         item.itemRented();
+
+        // db code
+        string name = cust.getCustomerName();
+        string itemName = item.getItemName();
+        double cost = item.getItemCost();
+        try {
+            db.RentItem(name, itemName, cost);
+        }
+        catch (Exception ex) {
+        }
+        
     }
 
-    // Return an item from customer
-    public void returnItem(Customer cust, RentedItem item) {
+    // Removes item from the customer's list
 
-        // Remove item from customer
+    public void returnItem(Customer cust, RentedItem item) {
+        
+        //db code
+        string name = cust.getCustomerName();
+        string itemName = item.getItemRented();
+        try {
+            db.ReturnItem(name, itemName);
+        }
+        catch (Exception ex) {
+        }
+
+        // cust list
         cust.removeRentalItem(item);
 
         // Increase stock
@@ -92,17 +176,40 @@ class Functions {
                 i.itemReturned();
             }
         }
+
+        
     }
 
     // ------------ Customer Payment Methods ------------ 
 
     // Return total amount a customer owes
     public double customerOwe(Customer cust) {
+
+        // db code
+        string name = cust.getCustomerName();
+        double balance = cust.getBalance();
+        
+
+        try {
+            db.CustomerSetBalance(name, balance);
+        }
+        catch (Exception ex) {
+        }
+
         return cust.getBalance();
     }
 
     // Deducts a payment of money from the amount they owe
     public void customerPay(int customerIndex, double pay) {
+        
+        //db code
+        string name = customerList[customerIndex].getCustomerName();
+        try {
+            db.CustomerPayBalance(name, pay);
+        }
+        catch (Exception ex) {
+        }
+        //list code
         this.customerList[customerIndex].payBalance(pay);
     }
 
