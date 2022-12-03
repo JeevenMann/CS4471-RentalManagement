@@ -14,6 +14,8 @@ class Functions {
     // List data structures that contain lists of Rental Items and Customers
     List<RentalItem> itemList = new List<RentalItem>();
     List<Customer> customerList = new List<Customer>();
+    
+
 
     // ------------ Item List Methods ------------ 
 
