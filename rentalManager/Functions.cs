@@ -156,7 +156,6 @@ class Functions {
 
     // Removes item from the customer's list
 
-    // Change param to RentedItem?
     public void returnItem(Customer cust, RentedItem item) {
         
         //db code
