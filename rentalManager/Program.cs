@@ -13,6 +13,7 @@ namespace rentalManager
 
         static Functions function = new Functions();
 
+   
         ///////////////////////////////////////////////////////////////////
         ////////////////////////// ITEM MENU //////////////////////////////
 
@@ -265,6 +266,7 @@ namespace rentalManager
                             }
                             //ADD item to customer's item list
                             function.rentItem(cusToRent,itemToRent);
+                            Console.Clear();
                             Console.WriteLine("Item Added to Customer's Item List");
                         }
                     }
@@ -306,7 +308,7 @@ namespace rentalManager
                                     Console.WriteLine("Please Enter a Valid Input");
                                 }
                             }
-
+                            Console.Clear();
                             Console.WriteLine("Item Removed to Customer's Item List");
                         }
                         
@@ -394,12 +396,10 @@ namespace rentalManager
                                 Console.WriteLine("Please Enter a Valid Input");
                             }
                         }
+                        Console.Clear();
                         Console.WriteLine("Amount Deducted from Amount Owed");
                     }
-                    else
-                    {
-                        Console.WriteLine("Returing to Payment Menu");
-                    }
+                
 
                     return true;
                 case "3":
@@ -465,7 +465,6 @@ namespace rentalManager
         //the main
         static void Main(string[] args)
         {
-         
             bool inMenu =true;
             while(inMenu)
             {

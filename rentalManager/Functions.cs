@@ -13,8 +13,10 @@ class Functions {
     // ------------ Attributes ------------ 
 
     
-    List<RentalItem> itemList = new List<RentalItem>();
-    List<Customer> customerList = new List<Customer>();
+    List<RentalItem> itemList = new List<RentalItem>() {new RentalItem("Lawnmower",50.00,30), new RentalItem("Chainsaw",90.00,15), new RentalItem("Drill",20.00,12)};
+    List<Customer> customerList = new List<Customer>();// {new Customer("Mike"), new Customer("John"), new Customer("Lee")};
+    
+
 
     // ------------ Item Functions ------------ 
 
