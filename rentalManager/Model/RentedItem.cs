@@ -5,21 +5,25 @@ using System.Globalization;
 
 class RentedItem {
 
+    // Define Variables
     double rentCost;
     DateTime dateRented;
     string itemRented;
 
 
+    // Get the cost of renting the item
     public double getRentCost()
     {
         return this.rentCost;
     }
 
+    // Get the date the item has been rented from
     public DateTime getDateRented()
     {
         return this.dateRented;
     }
 
+    // Get the item name that has been rented
     public string getItemRented()
     {
         return this.itemRented;
@@ -28,9 +32,12 @@ class RentedItem {
     public double calculateRent() {
             var cal = new System.Globalization.GregorianCalendar();
             var weekNum = cal.GetWeekOfYear(this.dateRented, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+
+            // Get the difference between the dateRented and the current date
             TimeSpan tt = this.dateRented - DateTime.Now;
 
-            int totalWeeks = tt.Days/7;
+            // Get the total amount of weeks floored
+            int totalWeeks = Math.floor(tt.Days/7);
             var biweeklyAmount = (totalWeeks % 2);
 
             if (biweeklyAmount > 0) {
