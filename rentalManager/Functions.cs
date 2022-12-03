@@ -14,7 +14,7 @@ class Functions {
 
     
     List<RentalItem> itemList = new List<RentalItem>();
-    List<Customer> customerList = new List<Customer>();// {new Customer("Mike"), new Customer("John"), new Customer("Lee")};
+    List<Customer> customerList = new List<Customer>();
     
 
 
