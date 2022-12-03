@@ -1,6 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+/*
+* Customer Class
+* Author: Navjeeven Mann, 251036059
+* Customer Class
+*/
 
 class Customer {
 

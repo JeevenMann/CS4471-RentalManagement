@@ -1,7 +1,11 @@
-
-
 using System;
 using System.Globalization;
+
+/*
+* RentedItem Class
+* Author: Navjeeven Mann, 251036059
+* Rented Item Class
+*/
 
 class RentedItem {
 
@@ -38,8 +42,11 @@ class RentedItem {
 
             // Get the total amount of weeks floored
             int totalWeeks = Math.floor(tt.Days/7);
+
+            // Mod by 2 to get the bi-weekly amount of weeks
             var biweeklyAmount = (totalWeeks % 2);
 
+            // If we aren't in the first week, subtract one to account for the first bi-weekly payment
             if (biweeklyAmount > 0) {
                 biweeklyAmount -= 1;
             }
@@ -48,6 +55,7 @@ class RentedItem {
 
     }
 
+    // Constructor
     public RentedItem(DateTime dateRented, RentalItem itemRented) {
         this.dateRented = dateRented;
         this.rentCost = itemRented.getItemCost();
