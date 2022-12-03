@@ -1,20 +1,23 @@
 //Add MySql Library
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
+using System;
+
 /*
 * Database Class
 * Author: Luke Edward, 251107324
 * Connect to the database with auth credentials and run appropriate queries
 */
-class database
+class Database
 {
     private MySqlConnection connection;
     private string server;
-    private string database;
+    private string database1;
     private string uid;
     private string password;
 
     //Constructor
-    public database()
+    public Database()
     {
         Initialize();
     }
@@ -23,13 +26,13 @@ class database
     private void Initialize()
     {
         server = "cs4471db.cek2uenwafvt.us-east-2.rds.amazonaws.com";
-        database = "cs4471Project";
+        database1 = "cs4471Project";
         //or it could be css4471db
         uid = "admin";
         password = "cs4471rocks";
         string connectionString;
         connectionString = "SERVER=" + server + ";" + "DATABASE=" + 
-		database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
+		database1 + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
 
         connection = new MySqlConnection(connectionString);
     }
@@ -47,11 +50,11 @@ class database
             switch (ex.Number)
             {
                 case 0:
-                    MessageBox.Show("Cannot connect to server.  Contact administrator");
+                    Console.WriteLine("Cannot connect to server.  Contact administrator");
                     break;
 
                 case 1045:
-                    MessageBox.Show("Invalid username/password, please try again");
+                    Console.WriteLine("Invalid username/password, please try again");
                     break;
             }
             return false;
@@ -68,7 +71,7 @@ class database
         }
         catch (MySqlException ex)
         {
-            MessageBox.Show(ex.Message);
+            Console.WriteLine(ex.Message);
             return false;
         }
     }
@@ -113,7 +116,7 @@ class database
     public void RentItem(string customerName, string itemName, double cost)
     {
         string query = $"INSERT INTO rents (customer_name, item_name, rent_cost, date_rented) VALUES('{customerName}', '{itemName}', '{cost}',CURDATE())";
-        DecreaseStock(itemName);
+        this.DecreaseStock(itemName);
 
         //open connection
         if (this.OpenConnection() == true)
@@ -133,7 +136,7 @@ class database
     public void ReturnItem(string customerName, string itemName)
     {
         string query = $"DELETE FROM rents WHERE item_name='{itemName} AND customer_name='{customerName}'";
-        IncreaseStock();
+        this.IncreaseStock(itemName);
         if (this.OpenConnection() == true)
         {
             MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -168,7 +171,7 @@ class database
     }
 
     //Update statement
-    public void DecreaseStock()
+    public void DecreaseStock(string itemName)
     {
         string query = $"UPDATE items SET stock = stock - 1 WHERE item_name ='{itemName}'";
 
@@ -366,11 +369,6 @@ class database
     }
 
 
-    
-    //Count statement
-    public int Count()
-    {
-    }
 
     //Backup
     public void Backup()

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/navjeevenmann/Documents/GitHub/CS4471-RentalManagement/rentalManager/rentalManager.csproj": {}
+    "/Users/lukeedward/Downloads/Github/CS4471-RentalManagement/rentalManager/rentalManager.csproj": {}
   },
   "projects": {
-    "/Users/navjeevenmann/Documents/GitHub/CS4471-RentalManagement/rentalManager/rentalManager.csproj": {
+    "/Users/lukeedward/Downloads/Github/CS4471-RentalManagement/rentalManager/rentalManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/navjeevenmann/Documents/GitHub/CS4471-RentalManagement/rentalManager/rentalManager.csproj",
+        "projectUniqueName": "/Users/lukeedward/Downloads/Github/CS4471-RentalManagement/rentalManager/rentalManager.csproj",
         "projectName": "rentalManager",
-        "projectPath": "/Users/navjeevenmann/Documents/GitHub/CS4471-RentalManagement/rentalManager/rentalManager.csproj",
-        "packagesPath": "/Users/navjeevenmann/.nuget/packages/",
-        "outputPath": "/Users/navjeevenmann/Documents/GitHub/CS4471-RentalManagement/rentalManager/obj/",
+        "projectPath": "/Users/lukeedward/Downloads/Github/CS4471-RentalManagement/rentalManager/rentalManager.csproj",
+        "packagesPath": "/Users/lukeedward/.nuget/packages/",
+        "outputPath": "/Users/lukeedward/Downloads/Github/CS4471-RentalManagement/rentalManager/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/navjeevenmann/.nuget/NuGet/NuGet.Config"
+          "/Users/lukeedward/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -37,6 +37,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "MySqlConnection": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

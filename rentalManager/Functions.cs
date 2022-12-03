@@ -17,16 +17,23 @@ class Functions {
     
 
     /* Initialize database */
-    static database db = new database();
+    static Database db = new Database();
 
     // ------------ Item Functions ------------ 
 
     // Return a list of the Item List
     public List<RentalItem> returnItemList() {
 
-        List<string> dbItemList = db.GetItemList();
-        //this line below will print out all the items in the db
-        //dbItemList.ForEach(Console.WriteLine);
+
+        List<string>[] dbItemList = new List< string>[5];
+
+        try {
+            dbItemList = db.GetItemList();
+        }
+        catch (Exception ex) {
+        }
+
+        
         return itemList;
     }
 
@@ -38,9 +45,12 @@ class Functions {
         itemList.Add(newItem);
 
         // Code to add to database
-        db.InsertItem(name, cost, stock);
+        try {
+            db.InsertItem(name, cost, stock);
+        }
+        catch (Exception ex) {
+        }
         // Placeholder
-        return false;
     }
 
     // Delete Item from database and return true if successful
@@ -49,7 +59,13 @@ class Functions {
 
         // Database Code 
         string toDelete = itemList[itemArrayPosition].getItemName();
-        db.DeleteItem(toDelete);
+        
+        // Code to add to database
+        try {
+            db.DeleteItem(toDelete);
+        }
+        catch (Exception ex) {
+        }
         // Remove from localDB
         itemList.RemoveAt(itemArrayPosition);
 
@@ -62,8 +78,14 @@ class Functions {
     // Return a list of the Customer List
     public List<Customer> returnCustomerList() { // Change string to Customer.cs?
         
-        List<string> dbCustomerList = db.GetCustomerList();
+        List<string>[] dbCustomerList = new List< string>[7];
         
+        try {
+            dbCustomerList = db.GetCustomerList();
+        }
+        catch (Exception ex) {
+        }
+
         return customerList;
     }
 
@@ -79,9 +101,13 @@ class Functions {
         customerList.Add(newCust);
 
         // Database code
-        db.InsertCustomer(custID, name);
+        try {
+            db.InsertCustomer(custID, name);
+
+        }
+        catch (Exception ex) {
+        }
         // Placeholder
-        return false;
     }
 
     // Delete Customer from database and return true if successful
@@ -89,7 +115,12 @@ class Functions {
 
         //db code
         string toDelete = customerList[customerArrayPosition].getCustomerID();
-        db.DeleteCustomer(toDelete);
+        
+        try {
+            db.DeleteCustomer(toDelete);
+        }
+        catch (Exception ex) {
+        }
 
         // Remove from localDB
         customerList.RemoveAt(customerArrayPosition);
@@ -115,19 +146,27 @@ class Functions {
         string name = cust.getCustomerName();
         string itemName = item.getItemName();
         double cost = item.getItemCost();
-        db.RentItem(name, itemName, cost);
-        return false;
+        try {
+            db.RentItem(name, itemName, cost);
+        }
+        catch (Exception ex) {
+        }
+        
     }
 
     // Removes item from the customer's list
 
     // Change param to RentedItem?
-    public Boolean returnItem(Customer cust, RentedItem item) {
+    public void returnItem(Customer cust, RentedItem item) {
         
         //db code
         string name = cust.getCustomerName();
-        string itemName = item.getItemName();
-        db.ReturnItem(name, itemName);
+        string itemName = item.getItemRented();
+        try {
+            db.ReturnItem(name, itemName);
+        }
+        catch (Exception ex) {
+        }
 
         // cust list
         cust.removeRentalItem(item);
@@ -138,6 +177,8 @@ class Functions {
                 i.itemReturned();
             }
         }
+
+        
     }
 
     // ------------ Customer Payment Methods ------------ 
@@ -148,19 +189,27 @@ class Functions {
         // db code
         string name = cust.getCustomerName();
         double balance = cust.getBalance();
-        db.CustomerSetBalance(name, balance);
+        
 
+        try {
+            db.CustomerSetBalance(name, balance);
+        }
+        catch (Exception ex) {
+        }
 
         return cust.getBalance();
     }
 
     // Deducts a payment of money from the amount they owe
-    public Boolean customerPay(int customerIndex, double pay) {
+    public void customerPay(int customerIndex, double pay) {
         
         //db code
         string name = customerList[customerIndex].getCustomerName();
-        db.CustomerPayBalance(name, pay);
-
+        try {
+            db.CustomerPayBalance(name, pay);
+        }
+        catch (Exception ex) {
+        }
         //list code
         this.customerList[customerIndex].payBalance(pay);
     }
