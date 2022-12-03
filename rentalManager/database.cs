@@ -250,7 +250,7 @@ class database
         }
     }
 
-    //Delete statement
+    //Delete Customer statement
     public void DeleteCustomer(string customerID)
     {
         string query = $"DELETE FROM customers WHERE customer_id='{customerID}'";
@@ -268,9 +268,7 @@ class database
     //Select statement
     public List< string >[] GetCustomerList()
     {
-        string query = "SELECT customers.customer_id, customers.customer_name, customers.balance, customers.amount_paid, items.item_name, rents.rent_cost, rents.date_rented 
-                        "FROM customers JOIN rents ON (rents.item_id = customers.customer_id) 
-                        "JOIN items ON (items.item_id = rents.customer_id)";
+        string query = "SELECT customers.customer_id, customers.customer_name, customers.balance, customers.amount_paid, items.item_name, rents.rent_cost, rents.date_rented FROM customers JOIN rents ON (rents.item_id = customers.customer_id) JOIN items ON (items.item_id = rents.customer_id)";
 
         //Create a list to store the result
         List< string >[] list = new List< string >[7];
@@ -323,9 +321,7 @@ class database
     //Select statement
     public List< string >[] GetItemList()
     {
-        string query = "SELECT items.item_id, items.item_name, items.cost, items.stock, customers.customer_name 
-                        "FROM items JOIN rents ON (rents.item_id = items.item_id) 
-                        "JOIN customers ON (customers.customer_id = rents.customer_id)";
+        string query = "SELECT items.item_id, items.item_name, items.cost, items.stock, customers.customer_name FROM items JOIN rents ON (rents.item_id = items.item_id) JOIN customers ON (customers.customer_id = rents.customer_id)";
 
         //Create a list to store the result
         List< string >[] list = new List< string >[5];
